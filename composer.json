@@ -1,0 +1,24 @@
+{
+    "name": "animelist/mal-api",
+    "type": "library",
+    "keywords": ["MyAnimeList.net", "myanimelist", "animelist", "api", "official", "unoffical"],
+    "description": "MyAnimeList.net (un)offical API",
+    "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "MalApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andrei",
+            "email": "n0at0x@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "electrolinux/phpquery": "^0.9.6",
+        "pimple/pimple": "^3.0"
+    }
+}
