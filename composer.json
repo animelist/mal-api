@@ -1,8 +1,8 @@
 {
     "name": "animelist/mal-api",
     "type": "library",
-    "keywords": ["MyAnimeList.net", "myanimelist", "animelist", "api", "official", "unoffical"],
-    "description": "MyAnimeList.net (un)offical API",
+    "keywords": ["MyAnimeList.net", "myanimelist", "animelist", "api", "official", "unofficial"],
+    "description": "MyAnimeList.net (un)official API",
     "license": "BSD-3-Clause",
     "autoload": {
         "psr-4": {
