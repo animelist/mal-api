@@ -8,15 +8,8 @@
 namespace MalApi\Service;
 
 use RuntimeException as Exception;
-use Pimple\Container;
 
 class Net {
-
-    /**
-     *
-     * @var Container
-     */
-    protected $container;
 
     /**
      * @var Resource $ch
@@ -58,12 +51,10 @@ class Net {
 
     /**
      *
-     * @param Container|null $container
      * @throws Exception
      */
-    public function __construct($container = null) {
+    public function __construct() {
         $this->ch = curl_init();
-        $this->container = $container;
         if ($this->ch === false) {
             throw new Exception('curl_init() failed');
         }
@@ -90,10 +81,10 @@ class Net {
         $this->setCurlOption(CURLOPT_USERPWD, null);
     }
 
-    protected function requireAuth() {
+    protected function requireAuth($user, $password) {
 
         $this->setCurlOption(CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        $this->setCurlOption(CURLOPT_USERPWD, $this->container['mal.config']->getUser() . ':' . $this->container['mal.config']->getPassword());
+        $this->setCurlOption(CURLOPT_USERPWD, $user . ':' . $password);
     }
 
     /**
@@ -117,17 +108,20 @@ class Net {
      * HTTP POST
      * @param string $url
      * @param array $data
-     * @param boolean $auth [false] true if login and password is a necessarily
+     * @param array|null $auth [null] array with indexes user and password
      * @return string
      */
-    public function post($url, $data = null, $auth = false) {
+    public function post($url, $data = null, $auth = null) {
         $this->setUrl($url);
         $this->setCurlOption(CURLOPT_POST, true);
         if (!is_null($data)) {
             $this->setCurlOption(CURLOPT_POSTFIELDS, http_build_query($data));
         }
-        if ($auth) {
-            $this->requireAuth();
+
+        if (!is_null($auth)) {
+            $this->requireAuth($auth['user'], $auth['password']);
+        } else {
+            $this->setNoAuth();
         }
 
         return $this->curlExec();

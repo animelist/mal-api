@@ -51,8 +51,8 @@ class Api {
             return new Config;
         };
 
-        $this->container['mal.net'] = function ($c) {
-            return new Net($c);
+        $this->container['mal.net'] = function () {
+            return new Net();
         };
 
         $this->container['mal.xml'] = function() {
@@ -118,7 +118,12 @@ class Api {
             $data[$xml_field] = $this->container['mal.xml']->convertToXml($data[$xml_field]);
         }
 
-        return $this->container['mal.net']->post($url, $data, true);
+        $auth = [
+            'user' => $this->container['mal.config']->getUser(),
+            'password' => $this->container['mal.config']->getPassword()
+        ];
+
+        return $this->container['mal.net']->post($url, $data, $auth);
     }
 
     /**
