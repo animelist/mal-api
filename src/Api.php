@@ -17,7 +17,7 @@ use MalApi\ParserTask\Anime as AnimeTask;
 use MalApi\ParserTask\AnimePhotos as AnimePhotosTask;
 use MalApi\Service\Config;
 use MalApi\Service\MalRouter;
-use MalApi\Service\Net;
+use NetHelper\Service\Net;
 use MalApi\Service\Parser;
 use MalApi\Service\Xml;
 
@@ -52,7 +52,9 @@ class Api {
         };
 
         $this->container['mal.net'] = function () {
-            return new Net();
+            $net = new Net();
+            $net->setUserAgent('MAL-api/1');
+            return $net;
         };
 
         $this->container['mal.xml'] = function() {
