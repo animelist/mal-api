@@ -125,7 +125,7 @@ class Api {
             'password' => $this->container['mal.config']->getPassword()
         ];
 
-        return $this->container['mal.net']->post($url, $data, $auth);
+        return $this->container['nxnx.net-helper']->post($url, $data, $auth);
     }
 
     /**
