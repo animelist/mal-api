@@ -12,13 +12,13 @@ use RuntimeException;
 use DateTime;
 use Pimple\Container;
 use MalApi\Entity\Anime;
-use MalApi\Exceptions\ConfigureError;
+use SpecParser\Exceptions\ConfigureError;
 use MalApi\ParserTask\Anime as AnimeTask;
 use MalApi\ParserTask\AnimePhotos as AnimePhotosTask;
 use MalApi\Service\Config;
 use MalApi\Service\MalRouter;
 use NetHelper\Service\Net;
-use MalApi\Service\Parser;
+use SpecParser\Service\Parser;
 use MalApi\Service\Xml;
 
 class Api {
@@ -51,7 +51,7 @@ class Api {
             return new Config;
         };
 
-        $this->container['mal.net'] = function () {
+        $this->container['nxnx.net-helper'] = function () {
             $net = new Net();
             $net->setUserAgent('MAL-api/1');
             return $net;
@@ -61,7 +61,7 @@ class Api {
             return new Xml;
         };
 
-        $this->container['mal.parser'] = function($c) {
+        $this->container['nxnx.spec-parser'] = function($c) {
             return new Parser($c);
         };
 
@@ -93,8 +93,8 @@ class Api {
      */
     public function getAnime($url) {
 
-        $anime = $this->container['mal.parser']->execute($this->container['mal.task.anime'], ['url' => $url]);
-        $anime_photos = $this->container['mal.parser']->execute($this->container['mal.task.anime_photos'], ['url' => $anime->getPicturesLink()]);
+        $anime = $this->container['nxnx.spec-parser']->execute($this->container['mal.task.anime'], ['url' => $url]);
+        $anime_photos = $this->container['nxnx.spec-parser']->execute($this->container['mal.task.anime_photos'], ['url' => $anime->getPicturesLink()]);
         $anime->setPhotos($anime_photos->getPhotos());
         return $anime;
     }

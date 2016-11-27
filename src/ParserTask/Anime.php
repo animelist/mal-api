@@ -9,8 +9,9 @@ namespace MalApi\ParserTask;
 
 use MalApi\Entity\Anime as EntityAnime;
 use phpQueryObject;
-use MalApi\Exceptions\ParseError;
+use SpecParser\Exceptions\ParseError;
 use DateTime;
+use SpecParser\ParserTask\AbstractTask;
 
 class Anime extends AbstractTask {
 

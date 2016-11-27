@@ -8,6 +8,7 @@
 namespace MalApi\ParserTask;
 
 use MalApi\Entity\Anime as EntityAnimePhotos;
+use SpecParser\ParserTask\AbstractTask;
 
 class AnimePhotos extends AbstractTask {
 

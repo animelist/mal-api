@@ -18,8 +18,8 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "electrolinux/phpquery": "^0.9.6",
         "pimple/pimple": "^3.0",
-        "nxnx/net-helper": "^1.0"
+        "nxnx/net-helper": "^1.0",
+        "nxnx/spec-parser": "^1.0"
     }
 }
